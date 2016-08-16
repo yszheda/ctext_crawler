@@ -37,15 +37,13 @@ USER_AGENTS = [
 
 # From: http://www.xicidaili.com/
 PROXIES = [
-        {'ip_port': '121.31.151.11:8123', 'user_pass': ''},
-        {'ip_port': '183.131.76.27:8888', 'user_pass': ''},
-        {'ip_port': '171.39.35.167:8123', 'user_pass': ''},
-        {'ip_port': '110.72.61.86:8123', 'user_pass': ''},
-        {'ip_port': '113.73.202.190:8118', 'user_pass': ''},
-        {'ip_port': '121.31.145.150:8123', 'user_pass': ''},
-        {'ip_port': '171.39.95.20:8123', 'user_pass': ''},
-        {'ip_port': '121.31.150.59:8123', 'user_pass': ''},
-        {'ip_port': '121.31.100.10:8123', 'user_pass': ''},
+        {'ip_port': '183.61.71.112:8888'},
+        {'ip_port': '218.244.149.184:8888'},
+        {'ip_port': '120.25.171.183:8080'},
+        {'ip_port': '119.6.136.122:80'},
+        {'ip_port': '118.180.15.152:8102'},
+        {'ip_port': '121.193.143.249:80'},
+        {'ip_port': '101.201.235.141:8000'},
 ]
 
 # Obey robots.txt rules
@@ -82,9 +80,10 @@ COOKIES_ENABLED = False
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'ctext.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+    'ctext.middlewares.RandomUserAgent': 1,
+    'ctext.middlewares.ProxyMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html

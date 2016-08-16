@@ -1,6 +1,6 @@
 import random
 import base64
-from settings import PROXIES
+# from settings import PROXIES
 
 
 class RandomUserAgent(object):
@@ -17,13 +17,20 @@ class RandomUserAgent(object):
 
 
 class ProxyMiddleware(object):
+    def __init__(self, proxies):
+        self.proxies = proxies
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(crawler.settings.getlist('PROXIES'))
+
     def process_request(self, request, spider):
-        proxy = random.choice(PROXIES)
-        if proxy['user_pass'] is not None:
+        proxy = random.choice(self.proxies)
+        print("Use proxy: %s" % proxy)
+
+        if 'user_pass' in proxy:
             request.meta['proxy'] = "http://%s" % proxy['ip_port']
             encoded_user_pass = base64.encodestring(proxy['user_pass'])
             request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass
-            print "**************ProxyMiddleware have pass************" + proxy['ip_port']
         else:
-            print "**************ProxyMiddleware no pass************" + proxy['ip_port']
             request.meta['proxy'] = "http://%s" % proxy['ip_port']
